@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaloliddin Xojimurodov — Front-End Developer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: rgba(22, 27, 34, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.25);
+            --accent: #6366f1;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --font-code: 'Fira Code', monospace;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #21262d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header / Nav */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: rgba(13, 17, 23, 0.8);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-code);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 30px;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: var(--font-code);
+            margin-bottom: 1.5rem;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 580px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: #fff;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Code Window Visual */
+        .code-window {
+            background: #161b22;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .window-header {
+            background: #0d1117;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .window-title {
+            margin-left: auto;
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .window-body {
+            padding: 20px;
+            font-family: var(--font-code);
+            font-size: 0.9rem;
+            color: #e6edf3;
+            line-height: 1.7;
+        }
+
+        .keyword { color: #ff7b72; }
+        .function { color: #d2a8ff; }
+        .string { color: #a5d6ff; }
+        .property { color: #79c0ff; }
+        .comment { color: #8b949e; }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-50px);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .skill-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .project-header {
+            padding: 1.5rem 1.5rem 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .project-badge {
+            background: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-code);
+        }
+
+        .project-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            color: var(--text-main);
+        }
+
+        .project-body {
+            padding: 0 1.5rem 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-item {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            color: var(--primary);
+            background: rgba(56, 189, 248, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .project-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: linear-gradient(135deg, rgba(22, 27, 34, 0.9), rgba(13, 17, 23, 0.9));
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-box h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .contact-box p {
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .tg-btn {
+            background: #29b6f6;
+            color: #fff;
+        }
+        .tg-btn:hover {
+            box-shadow: 0 6px 20px rgba(41, 182, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .phone-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+        }
+        .phone-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container nav-nav-container nav-container">
+            <a href="#" class="logo">
+                <span>&lt;</span>Jaloliddin<span>/&gt;</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">Haqimda</a></li>
+                <li><a href="#skills">Ko'nikmalar</a></li>
+                <li><a href="#projects">Loyihalar</a></li>
+                <li><a href="#contact">Aloqa</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="badge">
+                        <span class="badge-dot"></span> Yangi loyihalar uchun ochiqman
+                    </div>
+                    <h1>Front-End Developer</h1>
+                    <p>Salom! Men <strong>Jaloliddin Xojimurodov</strong>man. Yuqori unumdorlikka ega, zamonaviy, sezgir (responsive) hamda interaktiv web-interfeyslar yarataman.</p>
+                    <div class="hero-btns">
+                        <a href="#projects" class="btn btn-primary">
+                            Loyihalarni ko'rish <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                        <a href="https://t.me/dev_uz_pro" target="_blank" class="btn btn-outline">
+                            <i class="fa-brands fa-telegram"></i> Telegram
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Animated Code Block -->
+                <div class="code-window">
+                    <div class="window-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                        <div class="window-title">developer.js</div>
+                    </div>
+                    <div class="window-body">
+                        <span class="keyword">const</span> <span class="function">developer</span> = {<br>
+                        &nbsp;&nbsp;<span class="property">name</span>: <span class="string">'Jaloliddin Xojimurodov'</span>,<br>
+                        &nbsp;&nbsp;<span class="property">role</span>: <span class="string">'Front-End Engineer'</span>,<br>
+                        &nbsp;&nbsp;<span class="property">skills</span>: [<span class="string">'React'</span>, <span class="string">'JavaScript'</span>, <span class="string">'HTML5'</span>, <span class="string">'CSS3'</span>, <span class="string">'Git'</span>],<br>
+                        &nbsp;&nbsp;<span class="property">focus</span>: <span class="string">'UI/UX & Performance'</span>,<br>
+                        &nbsp;&nbsp;<span class="property">status</span>: <span class="string">'Building Next-Gen Web'</span><br>
+                        };<br><br>
+                        <span class="comment">// Kod sifatli va toza bo'lishi shart!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-title">
+                <h2>Texnologiyalar va Ko'nikmalar</h2>
+                <p>Zamonaviy va mukammal web-saytlar yaratishda foydalanadigan vositalarim</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fa-brands fa-react"></i></div>
+                    <div class="skill-title">React & Ecosystem</div>
+                    <div class="skill-desc">Interaktiv va komponentlarga asoslangan zamonaviy SPA web-ilovalarni yaratish.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fa-brands fa-js"></i></div>
+                    <div class="skill-title">JavaScript (ES6+)</div>
+                    <div class="skill-desc">Mantiqiy funksionallik, asinxron so'rovlar (Fetch/Axios) va DOM bilan ishlash.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fa-brands fa-html5"></i></div>
+                    <div class="skill-title">HTML5 & CSS3</div>
+                    <div class="skill-desc">Semantik tuzilish, Flexbox, CSS Grid va mukammal moslashuvchan (Responsive) dizayn.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <div class="skill-title">UI/UX & Performance</div>
+                    <div class="skill-desc">Foydalanuvchi uchun qulay interfeys, tez yuklanish darajasi va SEO optimizatsiyasi.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Loyihalar Portfoliosi</h2>
+                <p>Men ishlab chiqqan va moslashtirgan taniqli brendlar hamda korporativ platformalar</p>
+            </div>
+            <div class="projects-grid">
+
+                <!-- Artel -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Corporate Website</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Artel Group</h3>
+                            <p class="project-desc">Maishiy texnika ishlab chiqaruvchi yetakchi kompaniyaning rasmiy korporativ platformasi va mahsulotlar katalogi.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">HTML5</span>
+                                <span class="tech-item">CSS3/Sass</span>
+                                <span class="tech-item">JavaScript</span>
+                                <span class="tech-item">Responsive</span>
+                            </div>
+                        </div>
+                        <a href="https://artelgroup.org" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Akfa -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Industrial Portal</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Akfa Group</h3>
+                            <p class="project-desc">Sanoat va qurilish materiallari giganti uchun zamonaviy dizayn va qulay interfeysli veb-sayt.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">React</span>
+                                <span class="tech-item">JavaScript</span>
+                                <span class="tech-item">UI Frameworks</span>
+                            </div>
+                        </div>
+                        <a href="https://akfa.uz" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Chevrolet -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Automotive Showcase</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Chevrolet Uzbekistan</h3>
+                            <p class="project-desc">Avtomobillar katalogi, komplektatsiya va interaktiv taqdimotlar bilan jihozlangan platforma.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">JavaScript</span>
+                                <span class="tech-item">Animations</span>
+                                <span class="tech-item">CSS Grid</span>
+                            </div>
+                        </div>
+                        <a href="https://chevrolet.uz/" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Korzinka -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Retail & Promo</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Korzinka</h3>
+                            <p class="project-desc">Supermarketlar tarmog'ining aksiyalar, katalog va mijozlar uchun maxsus takliflar sahifasi.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">HTML5/CSS3</span>
+                                <span class="tech-item">JS App</span>
+                                <span class="tech-item">Mobile First</span>
+                            </div>
+                        </div>
+                        <a href="https://korzinka.uz/" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- EVOS -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Food Delivery & Brand</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">EVOS</h3>
+                            <p class="project-desc">Tezkor taomlar tarmog'ining menyu va brend ma'lumotlarini taqdim etuvchi tezkor platformasi.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">JavaScript</span>
+                                <span class="tech-item">Fast Loading</span>
+                                <span class="tech-item">Responsive</span>
+                            </div>
+                        </div>
+                        <a href="https://evos.uz/" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Uztelecom -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Telecom Services</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Uztelecom</h3>
+                            <p class="project-desc">Milliy telekommunikatsiya operatorining xizmatlar va tariflar portalining Front-End qismi.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">React</span>
+                                <span class="tech-item">REST API</span>
+                                <span class="tech-item">Web UI</span>
+                            </div>
+                        </div>
+                        <a href="https://uztelecom.uz" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Crafers -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Confectionery Brand</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Crafers</h3>
+                            <p class="project-desc">Qandolatchilik fabrikasining mahsulotlar taqdimoti va brend imijini oshiruvchi sayt.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">HTML/CSS</span>
+                                <span class="tech-item">JavaScript</span>
+                                <span class="tech-item">Interactive</span>
+                            </div>
+                        </div>
+                        <a href="https://crafers.uz" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nestle -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">International Brand</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Nestlé Uzbekistan</h3>
+                            <p class="project-desc">Xalqaro brendning mahalliy bozordagi mahsulotlari va brend ma'lumotlari portali.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">CSS3</span>
+                                <span class="tech-item">JS Animations</span>
+                                <span class="tech-item">SEO Friendly</span>
+                            </div>
+                        </div>
+                        <a href="https://nestle.uz/" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Makro -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Supermarket Network</span>
+                    </div>
+                    <div class="project-body">
+                        <div>
+                            <h3 class="project-title">Makro Market</h3>
+                            <p class="project-desc">Tarmoq supermarketlarining aksiyalari va do'konlar joylashuvini ko'rsatuvchi veb-sayt.</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">HTML5</span>
+                                <span class="tech-item">JavaScript</span>
+                                <span class="tech-item">UI/UX Design</span>
+                            </div>
+                        </div>
+                        <a href="https://makromarket.uz" target="_blank" class="project-link">
+                            Saytni ko'rish <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-box">
+                <h2>Birgalikda Loyiha Yarataylik!</h2>
+                <p>Sizga sifatli, tezkor va zamonaviy Front-End yechimlar kerakmi? Men bilan bog'laning va g'oyalaringizni amalga oshiramiz.</p>
+                <div class="contact-methods">
+                    <a href="https://t.me/dev_uz_pro" target="_blank" class="contact-btn tg-btn">
+                        <i class="fa-brands fa-telegram"></i> @dev_uz_pro
+                    </a>
+                    <a href="tel:+998951903181" class="contact-btn phone-btn">
+                        <i class="fa-solid fa-phone"></i> +998 95 190 31 81
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Jaloliddin Xojimurodov. Barcha huquqlar hamkorlik uchun ochiq.</p>
+        </div>
+    </footer>
+
+</body>
+  </html>
